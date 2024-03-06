@@ -1,0 +1,31 @@
+﻿@page
+@model IndexModel
+@{
+	ViewData["Title"] = "Home page";
+}
+
+<div class="row">
+	<div class="col">
+		<form>
+			<div class="row">
+				<div class="col">
+					<div class="position-relative">
+						<input type="search" class="form-control"
+							   id="product-lookup"
+							   placeholder="Begin by typing name of a product"
+							   hx-get='/api/products'
+							   hx-trigger="input changed delay:500ms, search"
+							   hx-target="#product-lookup-results" />
+						<div id="product-lookup-results"></div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+@section header {
+	<link href="~/css/index.css" rel="stylesheet" asp-append-version="true" />
+}
+@section footer {
+	<script src="~/js/index.js" asp-append-version="true"></script>
+} 
