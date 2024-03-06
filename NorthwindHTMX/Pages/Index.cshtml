@@ -9,14 +9,17 @@
 		<form>
 			<div class="row">
 				<div class="col">
-					<div class="position-relative">
-						<input type="search" class="form-control"
+					<div class="autocomplete">
+						<input type="search"
+							   class="form-control"
 							   id="product-lookup"
 							   placeholder="Begin by typing name of a product"
 							   hx-get='/api/products'
+							   htmx-added="hidden"
+							   hx-swap="outerHTML"
 							   hx-trigger="input changed delay:500ms, search"
 							   hx-target="#product-lookup-results" />
-						<div id="product-lookup-results"></div>
+						<div id="product-lookup-results" class="autocomplete-items hidden"></div>
 					</div>
 				</div>
 			</div>

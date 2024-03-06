@@ -1,7 +1,17 @@
-﻿{{#each result}}
-{{#with this}}
-<div data-company-id="{{ProductID}}">
-    {{ProductName}} (Price: {{UnitPrice}})
+﻿{{#if result.length}}
+<div id="product-lookup-results" class="autocomplete-items">
+    {{#each result}}
+    {{#with this}}
+    <div data-product-id="{{ProductID}}">
+        {{ProductName}} (Price: {{UnitPrice}})
+        <input type="hidden" name="product-id-{{ProductID}}" value="{{ProductID}}">
+        <input type="hidden" name="product-name-{{ProductID}}" value="{{ProductName}}">
+    </div>
+    {{/with}}
+    {{/each}}
 </div>
-{{/with}}
-{{/each}}
+{{else}}
+<div id="product-lookup-results" class="autocomplete-items hidden">
+    <div>No results found</div>
+</div>
+{{/if}}

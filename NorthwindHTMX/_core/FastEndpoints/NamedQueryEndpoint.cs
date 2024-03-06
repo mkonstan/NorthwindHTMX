@@ -71,7 +71,7 @@ public abstract class NamedQueryEndpoint : Endpoint<NamedQueryEndpoint.QueryRequ
 					query = query.Offset(request.Offset.Value);
 				}
 
-				var result = new { result = await query.GetAsync() };
+				var result = new { result = (await query.GetAsync()).ToArray() };
 				if(request.Template is not null)
 				{
 					if(!TemplateStore.TryGetTemplate(request.Template, out var template) || template is null)

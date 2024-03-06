@@ -23,5 +23,11 @@
         el.addEventListener("htmx:afterSwap", function (evt) {
             console.log("htmx:afterSwap", evt);
         });
+        el.addEventListener("htmx:beforeSettle", function (evt) {
+            console.log("htmx:beforeSettle", evt);
+        });
+        el.addEventListener("htmx:afterSettle", function (evt) {
+            console.log("htmx:afterSettle", evt);
+        });
     })(document.getElementById("product-lookup-results"))
 })();
