@@ -8,18 +8,18 @@
 	<div class="col">
 		<form>
 			<div class="row">
-				<div class="col">
+				<ul class="col">
 					<div class="autocomplete">
 						<input type="search"
 							   class="form-control"
 							   id="product-lookup"
 							   placeholder="Begin by typing name of a product"
 							   hx-get='/api/products'
-							   htmx-added="hidden"
-							   hx-swap="outerHTML"
+							   htmx-added="hidden"							   
 							   hx-trigger="input changed delay:500ms, search"
-							   hx-target="#product-lookup-results" />
-						<div id="product-lookup-results" class="autocomplete-items hidden"></div>
+							   hx-target="#product-lookup-results"
+							   autocompleat="off"/>
+						<ul id="product-lookup-results" class="autocomplete-items"></ul>
 					</div>
 				</div>
 			</div>

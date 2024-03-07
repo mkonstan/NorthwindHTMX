@@ -1,7 +1,7 @@
 ﻿/* HTMX test */
 (() => {
-    (function (el) {
-        el.addEventListener("htmx:configRequest", function ({ detail, target }) {
+    (function (productLookup, productList) {
+        productLookup.addEventListener("htmx:configRequest", function ({ detail, target }) {
             console.log("htmx:configRequest", { detail, target });
             const { parameters, headers } = detail;
             let value = target.value.trim();
@@ -14,20 +14,30 @@
             parameters["orderby"] = [{ "field": "ProductName", "dir": "asc" }];
             parameters["where"] = { "operator": "or", expressions: [{ "field": "ProductName", "operator": "like", "value": value }] };
         });
-    })(document.getElementById("product-lookup"));
+        productList.addEventListener("htmx:load", function (evt) {
+            console.log("htmx:load", evt);
+        });
 
-    (function (el) {
-        el.addEventListener("htmx:beforeSwap", function (evt) {
-            console.log("htmx:beforeSwap", evt);
+        productList.addEventListener("htmx:beforeSwap", function ({ target }) {
+            console.log("htmx:beforeSwap");
+            htmx.findAll(target, ":scope > li").forEach(el => {
+                htmx.off(el, "click");
+            });
         });
-        el.addEventListener("htmx:afterSwap", function (evt) {
-            console.log("htmx:afterSwap", evt);
+        productList.addEventListener("htmx:afterSwap", function ({ target }) {
+            console.log("htmx:afterSwap");
+            htmx.findAll(target, ":scope > li").forEach(el => {
+                htmx.on(el, "click", function ({ target }) {
+                    const value = target.getAttribute("data-name");
+                    productLookup.value = value;
+                });
+            });
         });
-        el.addEventListener("htmx:beforeSettle", function (evt) {
+        productList.addEventListener("htmx:beforeSettle", function (evt) {
             console.log("htmx:beforeSettle", evt);
         });
-        el.addEventListener("htmx:afterSettle", function (evt) {
+        productList.addEventListener("htmx:afterSettle", function (evt) {
             console.log("htmx:afterSettle", evt);
         });
-    })(document.getElementById("product-lookup-results"))
+    })(document.getElementById("product-lookup"), document.getElementById("product-lookup-results"));
 })();

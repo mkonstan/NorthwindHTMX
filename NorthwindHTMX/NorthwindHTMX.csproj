@@ -37,6 +37,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="_htmx-templates\product-lookup - Copy.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="_htmx-templates\product-lookup.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

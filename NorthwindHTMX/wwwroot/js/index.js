@@ -2,8 +2,8 @@
 
 /* HTMX test */
 (() => {
-  (function (el) {
-    el.addEventListener("htmx:configRequest", function (_ref) {
+  (function (productLookup, productList) {
+    productLookup.addEventListener("htmx:configRequest", function (_ref) {
       let {
         detail,
         target
@@ -36,19 +36,38 @@
         }]
       };
     });
-  })(document.getElementById("product-lookup"));
-  (function (el) {
-    el.addEventListener("htmx:beforeSwap", function (evt) {
-      console.log("htmx:beforeSwap", evt);
+    productList.addEventListener("htmx:load", function (evt) {
+      console.log("htmx:load", evt);
     });
-    el.addEventListener("htmx:afterSwap", function (evt) {
-      console.log("htmx:afterSwap", evt);
+    productList.addEventListener("htmx:beforeSwap", function (_ref2) {
+      let {
+        target
+      } = _ref2;
+      console.log("htmx:beforeSwap");
+      htmx.findAll(target, ":scope > li").forEach(el => {
+        htmx.off(el, "click");
+      });
     });
-    el.addEventListener("htmx:beforeSettle", function (evt) {
+    productList.addEventListener("htmx:afterSwap", function (_ref3) {
+      let {
+        target
+      } = _ref3;
+      console.log("htmx:afterSwap");
+      htmx.findAll(target, ":scope > li").forEach(el => {
+        htmx.on(el, "click", function (_ref4) {
+          let {
+            target
+          } = _ref4;
+          const value = target.getAttribute("data-name");
+          productLookup.value = value;
+        });
+      });
+    });
+    productList.addEventListener("htmx:beforeSettle", function (evt) {
       console.log("htmx:beforeSettle", evt);
     });
-    el.addEventListener("htmx:afterSettle", function (evt) {
+    productList.addEventListener("htmx:afterSettle", function (evt) {
       console.log("htmx:afterSettle", evt);
     });
-  })(document.getElementById("product-lookup-results"));
+  })(document.getElementById("product-lookup"), document.getElementById("product-lookup-results"));
 })();

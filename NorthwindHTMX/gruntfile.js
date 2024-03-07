@@ -60,7 +60,7 @@ module.exports = function (grunt) {
                 tasks: ["babel"]
             },
             css: {
-                files: ["wwwroot/**/*.jsx"],
+                files: ["wwwroot/**/*.scss"],
                 tasks: ["sass"]
             }
         }

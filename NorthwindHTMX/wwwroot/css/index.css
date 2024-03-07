@@ -20,6 +20,9 @@ input[type=submit] {
 }
 
 .autocomplete-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   position: absolute;
   border: 1px solid #d4d4d4;
   border-bottom: none;
@@ -30,13 +33,13 @@ input[type=submit] {
   left: 0;
   right: 0;
 }
-.autocomplete-items div {
-  padding: 10px;
+.autocomplete-items li {
+  padding: 4px;
   cursor: pointer;
   background-color: #fff;
   border-bottom: 1px solid #d4d4d4;
 }
-.autocomplete-items div:hover {
+.autocomplete-items li:hover {
   /*when hovering an item:*/
   background-color: #e9e9e9;
 }
